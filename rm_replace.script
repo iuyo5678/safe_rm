@@ -1,0 +1,24 @@
+# Time-stamp: <2014-02-11 15:50:27 Tuesday by zhangguhua>
+undelfile()
+{
+	mv -i ~/.trash/$@ ./
+}
+trash()
+{
+	mv $@ ~/.trash/
+}
+
+cleartrash()
+{
+	read -p "clear sure?[n]" confirm
+	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash/*
+}
+export trash
+export undelfile
+export cleartrash
+
+mkdir -p ~/.trash
+alias rm=trash  
+alias r=trash  
+alias rl='ls ~/.trash'
+alias ur=undelfile
