@@ -1,17 +1,38 @@
-# Time-stamp: <2014-02-11 15:50:27 Tuesday by zhangguhua>
 undelfile()
 {
 	mv -i ~/.trash/$@ ./
 }
+
 trash()
 {
-	mv $@ ~/.trash/
+    while getopts "dfiPRrvW" opt
+    do
+        case $opt in
+             * ) x=2;; 
+        esac
+    done
+
+    shift $(( $OPTIND - 1))
+
+    for arg   
+    do
+        newname="$(basename "$arg").$(date "+%s")"
+        mv $arg ~/.trash/ 
+    done
+}
+
+no_param()
+{
+    echo "rm : missing file operand\n"
+    echo " --help' for more information."
 }
 
 cleartrash()
 {
 	read -p "clear sure?[n]" confirm
 	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash/*
+	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash/.*
+    
 }
 export trash
 export undelfile
