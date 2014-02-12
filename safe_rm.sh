@@ -1,3 +1,11 @@
+### Time-stamp: <2014-02-12 13:17:54 Wednesday by zhangguhua>
+no_param()
+{
+    echo "rm : missing file operand\n"
+    echo " --help' for more information."
+    exit 1
+}
+
 undelfile()
 {
 	mv -i ~/.trash/$@ ./
@@ -13,19 +21,19 @@ trash()
     done
 
     shift $(( $OPTIND - 1))
-
+    
+    if [ $# = 0 ]
+    then
+	    no_param
+    fi
+    
     for arg   
     do
         newname="$(basename "$arg").$(date "+%s")"
-        mv $arg ~/.trash/ 
+        mv $arg ~/.trash/$newname 
     done
 }
 
-no_param()
-{
-    echo "rm : missing file operand\n"
-    echo " --help' for more information."
-}
 
 cleartrash()
 {
