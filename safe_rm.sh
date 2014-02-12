@@ -30,8 +30,8 @@ no_param()
 cleartrash()
 {
 	read -p "clear sure?[n]" confirm
-	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash/*
-	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash/.*
+	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash
+	[ $confirm == 'y' ] || [ $confirm == 'Y' ]  && mkdir ~/.trash
     
 }
 export trash
