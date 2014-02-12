@@ -1,24 +1,26 @@
 #!/bin/sh
 
-# Time-stamp: <2014-02-11 15:49:30 Tuesday by zhangguhua>
+# Time-stamp: <2014-02-12 11:00:26 Wednesday by zhangguhua>
+
 #set -x
 SDIR=$(dirname $0)
 
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 [install, unstall]"
+    echo "Usage: $0 [install, uninstall]"
     exit 1
 fi
 
 if [ $1 = 'install' ]; then
-    cat ${SDIR}/rm_replace.script >> ~/.bashrc
+    mv ${SDIR}/safe_rm.sh ~/.safe_rm.sh
+    echo ". ~/.safe_rm.sh" >> ~/.bashrc
     crontab ${SDIR}/crontab.txt
 fi
 
 if [ $1 = 'uninstall' ]; then
-    unalias rm
-    unalias r  
-    unalias rl
-    unalias ur
+    for line in `cat ${SDIR}/rm_replace.script`
+    do
+        echo $line
+    done
 fi
 
 . ~/.bashrc
