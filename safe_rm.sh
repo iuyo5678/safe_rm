@@ -1,9 +1,7 @@
-### Time-stamp: <2014-02-12 13:17:54 Wednesday by zhangguhua>
+### Time-stamp: <2014-02-12 13:51:57 Wednesday by zhangguhua>
 no_param()
 {
-    echo "rm : missing file operand\n"
-    echo " --help' for more information."
-    exit 1
+    echo "rm : missing file operand"
 }
 
 undelfile()
@@ -13,7 +11,7 @@ undelfile()
 
 trash()
 {
-    while getopts "dfiPRrvW" opt
+    while getopts "dfirvR" opt
     do
         case $opt in
              * ) x=2;; 
@@ -25,13 +23,14 @@ trash()
     if [ $# = 0 ]
     then
 	    no_param
+    else
+        for arg   
+        do
+            newname="$(basename "$arg").$(date "+%s")"
+            mv $arg ~/.trash/$newname 
+        done
     fi
     
-    for arg   
-    do
-        newname="$(basename "$arg").$(date "+%s")"
-        mv $arg ~/.trash/$newname 
-    done
 }
 
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Time-stamp: <2014-02-12 11:54:13 Wednesday by zhangguhua>
+# Time-stamp: <2014-02-12 13:56:57 Wednesday by zhangguhua>
 
 #set -x
 SDIR=$(dirname $0)
@@ -19,9 +19,12 @@ if [ $1 = 'install' ]; then
 fi
 
 if [ $1 = 'uninstall' ]; then
-    read -p "clear sure?[n]" confirm
     name=". ~/.safe_rm.sh"
-    [ $confirm == 'y' ] || [ $confirm == 'Y' ]  && /bin/rm -rf ~/.trash ~/.safe_rm.sh
-    [ $confirm == 'y' ] || [ $confirm == 'Y' ]  && grep -v "$name" ~/.bashrc > ~/.temp.temp && mv ~/.temp.temp ~/.bashrc
+    confirm2='N'
+    read -p "clear sure uninstall safe_rm ?[n]" confirm1
+    [ $confirm1 == 'y' ] || [ $confirm1 == 'Y' ]  && /bin/rm -rf ~/.safe_rm.sh
+    [ $confirm1 == 'y' ] || [ $confirm1 == 'Y' ]  && grep -v "$name" ~/.bashrc > ~/.temp.temp && mv ~/.temp.temp ~/.bashrc
+    [ $confirm1 == 'y' ] || [ $confirm1 == 'Y' ]  && read -p "clear sure remove the trash folder ,maybe lost file?[n]" confirm2
+    [ $confirm2 == 'y' ] || [ $confirm2 == 'Y' ]  && /bin/rm -rf ~/.trash
 fi
 
